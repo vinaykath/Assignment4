@@ -1,17 +1,33 @@
-def add(a,b):   
-    """Adding"""
-    return a + b
+from calculator.user_input import UserInput
+from calculator.actions import add, subtract, multiply, divide
+from calculator.calculation_history import CalculationsHistory, Calc
 
-def subtract(a,b):  
-    """Subtracting"""
-    return a - b
-
-def multiply(a,b):
-    """Multiplying"""
-    return a * b
-
-def divide (a,b):
-    """Dividing"""
-    if b == 0:
-        raise ZeroDivisionError("Cannot divde by zero")
-    return a /b
+class Calculator:
+    @staticmethod
+    def addition(a,b):
+        result = UserInput(a, b, add)  
+        # adding function from calculator.actions
+        CalculationsHistory.create_history(result)
+        return result.result()
+    @staticmethod
+    def subtraction(a,b):
+        result = UserInput(a, b, subtract)  
+        # Subtracting function from calculator.actions
+        CalculationsHistory.create_history(result)
+        return result.result()
+    @staticmethod
+    def multiplication(a,b):
+        result = UserInput(a, b, multiply)
+         # Multiply function from calculator.actions
+        CalculationsHistory.create_history(result)
+        return result.result()
+    @staticmethod
+    def divison(a,b):
+        try:
+            result = UserInput(a, b, divide)  
+         # Dividing function from calculator.actions
+            CalculationsHistory.create_history(result)
+            return result.result()
+        except ZeroDivisionError:
+            print("Cannot divided by Zero.")
+        
